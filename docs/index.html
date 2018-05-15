@@ -1,0 +1,173 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>MtG Card Suggest</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+
+
+    <link href="https://cdn.rawgit.com/ichord/At.js/1b7a5201/dist/css/jquery.atwho.css" rel="stylesheet">
+    <script src="main.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/ichord/Caret.js/341fb20b/dist/jquery.caret.js"></script>
+    <script src="jquery.atwho.js"></script>
+
+
+    <script>
+      $(function() {
+      $('textarea, #nameInput').atwho({
+          at: "\/mtg",
+          displayTpl: "<li>${jname} / ${name}</li>",
+          insertTpl: "<< ${jname} / ${name} >>",
+          limit: 200,
+          callbacks: mtg_callback,
+          searchKey: 'jname', // ここnullで動かしたいのだが
+      })
+
+      $('#imageInput').atwho({
+          at: "\/imtg",
+          displayTpl: "<li>${jname} / ${name}</li>",
+          insertTpl: "${jimageUrl}",
+          searchKey: 'jname', // ここnullで動かしたいのだが
+          callbacks: mtg_callback,
+      })
+
+      $('#imageInput').change(function() {
+        $('#preview').attr('src', $('#imageInput').prop('value'))
+      })
+
+
+
+      })
+    </script>
+
+  </head>
+  <body>
+    <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+      <header class="demo-header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">MtG Card Suggest</span>
+          <div class="mdl-layout-spacer"></div>
+          <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search">
+              <label class="mdl-textfield__label" for="search">Enter your query...</label>
+            </div>
+          </div> -->
+        </div>
+      </header>
+      <div class="demo-ribbon"></div>
+      <main class="demo-main mdl-layout__content">
+        <div class="demo-container mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+          <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+            <h3>MtG カード名検索</h3>
+              <p>
+                下部のinputまたはtextareaに、<strong>/mtg検索キーワード</strong>と入力することで、キーワードを含むカード名がリストに表示されます。</p>
+              <p>
+                リストからカードを選択すると、日本語名と英語名に置換されます。
+              </p>
+              <p>
+                ex) <strong>/mtgゴブリンの手投げ弾</strong>
+              </p>
+              <p>
+                一部古いカードには対応していません。
+              </p>
+              <p>
+                キーワードは設定で日本語対応になっており、英名を直接検索することができません。
+              </p>
+              <div>
+                <input type="text" id="nameInput" size="60" placeholder="/mtgドラゴン">
+              </div>
+              <br>
+              <div>
+                <textarea id="nameTextarea" placeholder="/mtgドミナリア" style="width:100%;" ></textarea>
+              </div>
+              <p>
+                カード情報は
+              </p>
+              <a href="https://magicthegathering.io/">MTG Developers</a>
+              <p>から取得しています。過度の入力にはご注意ください。</p>
+            <h3>MtG カード画像検索</h3>
+              <p>
+                カード名と同様に、<strong>/imtg検索キーワード</strong>で選択時に、日本語カードのURLが挿入されます。
+              </p>
+              <p>古いカードになるごとに 日本語カード → 英語カード → 画像なし(undefined) になる可能性があります。</p>
+              <div>
+                <input type="text" id="imageInput" size="60" placeholder="/imtgネコルーの女王、ワシトラ">
+              </div>
+            <h4>画像Preview</h4>
+              <div>
+                <img src="" alt="検索画像" id="preview">
+              </div>
+          </div>
+        </div>
+        <footer class="demo-footer mdl-mini-footer">
+        </footer>
+      </main>
+    </div>
+    <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/article/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>
