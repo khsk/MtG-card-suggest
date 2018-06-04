@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+# Readme
 
-You can use the [editor on GitHub](https://github.com/khsk/MtG-card-suggest/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+https://khsk.github.io/MtG-card-suggest/
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+GitHub Pages を参照してください。
 
-### Markdown
+# 使用ライブラリ
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+* [At.js](http://ichord.github.io/At.js/)
 
-```markdown
-Syntax highlighted code block
+[Return early for undefined events by markedmondson · Pull Request #534 · ichord/At.js](https://github.com/ichord/At.js/pull/534)
+の変更を意図的に抜き、フィルター側で空文字のqueryを弾いて居ます。
+これは検索開始時の空文字query検索を防ぐとともに、変換確定時にqueryが実行されるよにする処置です。
 
-# Header 1
-## Header 2
-### Header 3
+# データ取得先
 
-- Bulleted
-- List
+* [MTG Developers](https://magicthegathering.io/)
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/khsk/MtG-card-suggest/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
